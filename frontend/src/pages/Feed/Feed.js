@@ -50,11 +50,11 @@ class Feed extends Component {
         }
         updatedPosts.unshift(post);
       }
+      return {
+        posts: updatedPosts,
+        totalPosts: prevState.totalPosts + 1,
+      };
     });
-    return {
-      posts: updatedPosts,
-      totalPosts: prevState.totalPosts + 1,
-    };
   };
 
   loadPosts = (direction) => {
