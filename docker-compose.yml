@@ -1,0 +1,44 @@
+version: '3.3'
+
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.development
+    depends_on:
+      - mongo
+    volumes:
+      - /app/node_modules
+      - ./server:/app
+    ports:
+      - 3001:3000
+
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - ./data/mongo:/data/db
+    ports:
+      - 27017:27017
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    depends_on:
+      - mongo
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password
+
+  frontend:
+    build: ./frontend
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app
+    ports:
+      - 3000:3000
