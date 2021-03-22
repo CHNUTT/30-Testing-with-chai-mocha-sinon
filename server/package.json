@@ -4,7 +4,8 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha --watch test/**/*.js",
+    "test-2": "cross-env NODE_ENV=test nodemon --exec \"mocha --watch test/**/*.js\"",
+    "test": "cross-env NODE_ENV=test mocha --watch test/**/*.js --timeout 5000",
     "start": "node src/index.js",
     "dev": "nodemon --trace-warnings src/index.js"
   },
@@ -32,6 +33,7 @@
   },
   "devDependencies": {
     "chai": "^4.3.4",
+    "cross-env": "^7.0.3",
     "mocha": "^8.3.2",
     "sinon": "^9.2.4"
   }

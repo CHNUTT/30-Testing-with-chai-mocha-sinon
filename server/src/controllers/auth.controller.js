@@ -71,10 +71,10 @@ exports.getUserStatus = async (req, res, next) => {
   try {
     const currentUser = await User.findById(req.userId);
     if (!currentUser) throw createError('User not found.', 404);
-
-    res.status(200).json({ status: currentUser.status });
+    return res.status(200).json({ status: currentUser.status });
   } catch (error) {
     next(error);
+    return error;
   }
 };
 

@@ -9,7 +9,11 @@ const {
   SECRET_TOKEN,
 } = process.env;
 
-const MONGO_URI = `mongodb://${DB_USER}:${DB_PASSWORD}@${DB_HOST_NAME}:${DB_HOST_PORT}/${DB_DATABASE_NAME}?authSource=${DB_AUTH}`;
+const MONGO_URI = `mongodb://${DB_USER}:${DB_PASSWORD}@${DB_HOST_NAME}:${DB_HOST_PORT}/${
+  process.env.NODE_ENV === 'test'
+    ? `${DB_DATABASE_NAME}_test`
+    : DB_DATABASE_NAME
+}?authSource=${DB_AUTH}`;
 
 module.exports = {
   MONGO_URI,
