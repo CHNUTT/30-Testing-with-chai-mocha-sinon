@@ -10,7 +10,7 @@ describe('Auth Controller - Login', () => {
     delete mongoose.connection.models['User'];
     // mongoose.connection.deleteModel(/.+/);
   });
-  it('should throw an error with code 500 if accessing the database fails', (done) => {
+  it('should throw an error with code 500 if accessing the database fails', async () => {
     sinon.stub(User, 'findOne');
     User.findOne.throws();
 
@@ -21,11 +21,9 @@ describe('Auth Controller - Login', () => {
       },
     };
 
-    AuthController.signin(req, {}, () => {}).then((result) => {
-      expect(result).to.be.an('error');
-      expect(result).to.have.property('statusCode', 500);
-      done();
-    });
+    const result = await AuthController.signin(req, {}, () => {});
+    expect(result).to.be.an('error');
+    expect(result).to.have.property('statusCode', 500);
 
     User.findOne.restore();
   });

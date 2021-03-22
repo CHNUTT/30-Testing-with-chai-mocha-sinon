@@ -72,13 +72,17 @@ exports.postPost = async (req, res, next) => {
 
     // INFO 5. Retreive user data from current user
     const creator = await User.findById(currentUserId);
+    if(!creator) throw createError('User not found', 404);
 
     // INFO 6. Push that createdPost (use post not createdPost) to the user
     creator.posts.push(post);
-    await creator.save();
+    const currentCreator = await creator.save();
+    if(!currentCreator) throw createError('User not found', 404);
+
+    console.log('1')
 
     // INFO 7.
-    return res.status(201).json({
+    res.status(201).json({
       message: 'Post created successfully',
       post: createdPost,
       creator: {
@@ -86,6 +90,7 @@ exports.postPost = async (req, res, next) => {
         name: creator.name,
       },
     });
+    return currentCreator;
   } catch (error) {
     if (!error.statusCode) error.statusCode = 500;
     next(error);
