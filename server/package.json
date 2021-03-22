@@ -1,10 +1,10 @@
 {
-  "name": "30-Testing",
+  "name": "30-testing",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha test/**/*.js",
+    "test": "mocha --watch test/**/*.js",
     "start": "node src/index.js",
     "dev": "nodemon --trace-warnings src/index.js"
   },

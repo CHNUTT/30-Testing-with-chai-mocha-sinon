@@ -2,7 +2,8 @@ const { expect } = require('chai');
 const jwt = require('jsonwebtoken');
 const sinon = require('sinon');
 
-const authMiddleware = require('../src/middlewares/is-auth');
+const authMiddleware = require('../../src/middlewares/is-auth');
+
 
 describe('isAuth middleware', () => {
   it('should throw an error if no authorization header passing in', () => {

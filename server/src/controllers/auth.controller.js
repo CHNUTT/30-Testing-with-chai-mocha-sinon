@@ -59,10 +59,11 @@ exports.signin = async (req, res, next) => {
       { expiresIn: '1hr' }
     );
 
-    res.status(200).json({ token, userId: user._id.toString() });
+    return res.status(200).json({ token, userId: user._id.toString() });
   } catch (error) {
     if (!error.statusCode) error.statusCode = 500;
     next(error);
+    return error;
   }
 };
 
